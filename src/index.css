@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'IRANSans';
+  src: local('IRANSans'), url("./assets/fonts/IRANSans(FaNum).ttf") format('woff');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, IRANSans, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: -apple-system, IRANSans, serif;
+}

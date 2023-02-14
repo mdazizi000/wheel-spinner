@@ -1,0 +1,42 @@
+
+.spinner {
+    font-family: IRANSans, serif;
+}
+
+
+
+
+#spin:hover {
+    color: rgb(0, 180, 120);
+    border-color: rgb(0, 180, 120);
+}
+
+#spin:focus, #reset:focus {
+    outline:none;
+}
+
+/* #reset {
+  position: absolute;
+  bottom: 20vh;
+  right: 35vw;
+} */
+
+#reset:hover {
+    color: red;
+    border-color: red;
+}
+
+
+
+
+#result{
+    font-size:50px;
+    color: rgb(0, 180, 120);
+}
+
+
+.winner-name{
+    direction: rtl;
+    font-size: 35px;
+    font-weight: 800;
+}

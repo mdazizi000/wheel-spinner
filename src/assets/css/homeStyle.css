@@ -1,0 +1,117 @@
+
+body{
+    font-family: IRANSans, serif;
+    direction: rtl;
+    /*background-image:url("../img/wheel-2.jpg") ;*/
+    /*background-size: contain;*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+}
+
+i{
+    margin: 0 10px;
+}
+.mt-50{
+    margin-top: 50px;
+}
+.mt-100{
+    margin-top: 100px;
+}
+.mt-200{
+    margin-top: 200px;
+}
+.mt-300{
+    margin-top: 300px;
+}
+.mt-400{
+    margin-top: 400px;
+}
+
+
+.mr-100{
+    margin-right: 100px;
+}
+.mr-200{
+    margin-right: 200px;
+}
+.mr-300{
+    margin-right: 300px;
+}
+.mr-400{
+    margin-right: 400px;
+}
+
+.mb-100{
+    margin-bottom: 100px;
+}
+.mb-200{
+    margin-bottom: 200px;
+}
+.mb-300{
+    margin-bottom: 300px;
+}
+.mb-400{
+    margin-bottom: 400px;
+}
+
+
+.ml-100{
+    margin-left: 100px;
+}
+.ml-200{
+    margin-left: 200px;
+}
+.ml-300{
+    margin-left: 300px;
+}
+.ml-400{
+    margin-left: 400px;
+}
+.container-box{
+    background: rgba(255, 255, 255, 0.65);
+}
+.login-box{
+    margin-top: 8%;
+    height: 700px;
+    border-radius: 15px;
+    border: 3px solid#6C107B;
+    overflow-y:scroll ;
+}
+
+.login-form{
+    background: rgba(0, 0, 0, 0.71);
+    border-radius: 15px;
+    color: #fff;
+    direction: rtl;
+
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.login-box .link{
+    text-decoration: none;
+    color: #000;
+    margin-top: 30px;
+}

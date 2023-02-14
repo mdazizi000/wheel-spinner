@@ -1,0 +1,19 @@
+ .navbar-i{
+     color: #000 !important;
+     font-size: 30px;
+     margin: 7px;
+     z-index: 5!important;
+ }
+
+ .header {
+     display: none;
+ }
+
+ @media all and (max-width: 1200px){
+
+     .header{
+         display: block;
+         background: #D2C0FE;
+     }
+
+ }

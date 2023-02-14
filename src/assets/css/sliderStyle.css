@@ -1,0 +1,122 @@
+
+:root {
+    --carousel-height: 400px;
+    --current-slide: 0;
+    --slide-width: 29vw;
+}
+.carousel {
+    height: 600px;
+    position: relative;
+}
+
+.carousel-controls {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
+
+.carousel-control {
+    bottom: 0;
+    position: absolute;
+    top: 0;
+    border: none;
+    background: transparent;
+}
+
+.carousel-control.is-prev {
+    left: 0;
+}
+
+.carousel-control.is-next {
+    right: 0;
+}
+
+.carousel-control.is-prev i ,.carousel-control.is-next i{
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.carousel-slides {
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.carousel-slide {
+    box-shadow: 0;
+    align-items: center;
+    background-color: transparent;
+    bottom: 0;
+    display: flex;
+    font-weight: bold;
+    height: calc(var(--carousel-height) * 0.85);
+    justify-content: center;
+    left: 50%;
+    margin: 0.5em;
+    position: absolute;
+    top: 50%;
+    transform-origin: top left;
+    transform: scale(0.6) translate(-50%, -50%);
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out,
+    box-shadow 300ms ease-in-out;
+    width: var(--slide-width);
+    opacity: 0.8;
+}
+.carousel-slide img{
+    border-radius: 20px;
+}
+
+.carousel-slide.is-active {
+    box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 1;
+    z-index: 2;
+}
+
+.carousel-slide.is-left {
+    transform: scale(0.6) translate(-150%, -50%);
+    z-index: 1;
+}
+
+.carousel-slide.is-right {
+    transform: scale(0.6) translate(50%, -50%);
+    z-index: 1;
+}
+
+.carousel-dots {
+    bottom: 0;
+    display: flex;
+    left: 50%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    transform: translate(-50%, 100%);
+    z-index: 3;
+}
+
+.carousel-dot {
+    display: block;
+    margin: 0.5em;
+}
+
+.carousel-dot button {
+    background-color: #3498db;
+    border: 0;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.carousel-dot.is-active button {
+    background-color: #9b59b6;
+}

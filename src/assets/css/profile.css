@@ -1,0 +1,18 @@
+
+
+h1,h2,h3,h4,h5,h6{
+    color: #6C107B;
+    font-weight: 900;
+}
+
+.form-container{
+    border-radius: 15px;
+    padding: 25px;
+}
+.form-container .span{
+    font-weight: 600;
+}
+
+.btn-2{
+    margin:0 7px;
+}

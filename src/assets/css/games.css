@@ -1,0 +1,50 @@
+
+
+.games-box{
+    border-radius: 15px;
+    height: auto;
+    text-align: center;
+}
+
+.games-box .game-item{
+    border-radius: 8px;
+    border: 4px solid #F99417;
+    height: auto;
+    text-align: center;
+    padding: 25px;
+    margin: 20px 20px;
+    /*background: rgba(233, 161, 255, 0.34);*/
+
+}
+
+.games-box .game-item i {
+    font-size: 50px;
+    font-weight: 600;
+    color: #5D3891;
+    border: 4px solid #F99417;
+    padding: 12px 17px;
+    border-radius: 50%;
+}
+
+.games-box .game-item .game-details {
+    font-size: 21px;
+    font-weight: 500;
+    color: #5D3891;
+    margin-top: 15px;
+
+}
+
+.games-box .game-item .join-btn {
+    color: #5D3891;
+    font-weight: 600;
+    border: 1px solid #F99417;
+    background: transparent;
+
+
+}
+.games-box .game-item .join-btn:hover {
+    background: #F99417;
+    color: #fff;
+
+
+}

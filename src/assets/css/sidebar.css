@@ -1,0 +1,47 @@
+
+body{
+    font-family: IRANSans, serif;
+    margin: 0;
+    direction: rtl;
+}
+
+.sidebar-section{
+    width: 300px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background: #D2C0FE;
+    z-index: 3;
+}
+
+.sidebar-section .user-profile{
+    border-radius: 25px;
+}
+.sidebar-section .menu-row {
+    max-width:none !important;
+}
+.sidebar-section .menu {
+    margin-right: -22px;
+    width: 112% !important;
+}
+.sidebar-section .menu-item {
+    background: transparent;
+    padding: 10px 10px;
+    border: none;
+}
+.sidebar-section .menu-link{
+    border: none;
+    border-bottom: 1px solid #000;
+    text-decoration: none;
+    color: #000;
+}
+
+@media all and (max-width: 1200px){
+    .sidebar-section{
+        right: -300px;
+    }
+    .side{
+       display: none;
+    }
+}
