@@ -17,6 +17,7 @@ import Profile from "./pages/Profile";
 import Games from "./pages/Games";
 import MyGames from "./pages/MyGames";
 import Spinning from "./pages/Spinning";
+import Spinner from "./pages/Spinner";
 
 function App() {
   const [ token, setToken] = useState(null);
@@ -32,7 +33,7 @@ function App() {
         {path:'/dashboard/profile', element:<Profile/>},
         {path:'/dashboard/games', element:<Games/>},
         {path:'/dashboard/my-games', element:<MyGames/>},
-        {path:'/dashboard/game/:id', element:<Spinning/>},
+        {path:'/dashboard/game/:id', element:<Spinner/>},
       ]
     },
     {path:'/', element:<HomePage/>},

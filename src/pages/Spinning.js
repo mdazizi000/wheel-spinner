@@ -8,8 +8,8 @@ const Spinning = () => {
     const [rotate, setRotate] = useState(0);
     const [spinning, setSpinning] = useState(false);
     const [winner, setWinner] = useState("");
-    const slices = ["Slice 1", "Slice 2", "Slice 3", "Slice 4", "Slice 5", "Slice 6", "Slice 5", "Slice 6"];
-    const sliceColors = ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#673AB7", "#2196F3", "#673AB7"];
+    const slices = ["Slice 1", "Slice 2", "Slice 3", "Slice 4", "Slice 5", "Slice 6"];
+    const sliceColors = ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3"];
     const sliceDeg = 360 / slices.length;
 
     useEffect(() => {
@@ -19,7 +19,6 @@ const Spinning = () => {
             }, 20);
             return () => clearTimeout(timeoutId);
         }
-   
     }, [spinning, rotate]);
 
     const handleSpinClick = () => {
