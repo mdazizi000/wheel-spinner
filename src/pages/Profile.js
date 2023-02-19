@@ -21,6 +21,7 @@ const Profile = () => {
                 icon: 'error',
                 title: 'موجودی کافی نیست...!!',
                 text: 'موجودی حساب شما کافی نیست',
+                confirmButtonText: 'فهمیدم'
             })
         }
         else {

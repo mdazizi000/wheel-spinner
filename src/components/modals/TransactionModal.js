@@ -16,9 +16,9 @@ const TransactionModal = (props) => {
                   <Row className={'justify-content-start'}>
                       <FormGroup className="col-12  position-relative">
                           <Label for="link">
-                              لینک بازی
+                             مبلغ تراکنش (دلار)
                           </Label>
-                          <Input placeholder={'لینک بازی را وارد کنید'} onChange={(e) => setPrice(e.target.value)}
+                          <Input placeholder={'مبلغ مورد نظر را وارد کنید'} onChange={(e) => setPrice(e.target.value)}
                                  type={'text'}/>
                       </FormGroup>
                   </Row>
