@@ -1,10 +1,16 @@
-import {Fragment} from "react";
-import {Button, Card, CardBody, CardHeader, Row} from "reactstrap";
-import Wheel from "../components/wheel/Wheel";
+import {Fragment, useState} from "react";
+import {Button, Card, CardBody, CardHeader, Row, Tooltip} from "reactstrap";
 import {Link} from "react-router-dom";
 
 
 const MyGames = () => {
+    const [tooltipOpen,setTooltipOpen]=useState(false);
+    const [tooltiptext,setTooltiptext]=useState('کپی کردن');
+
+    function toggle() {
+        setTooltipOpen(!tooltipOpen)
+    }
+
     return (
         <div className={"container"}>
             <Row>
@@ -25,6 +31,15 @@ const MyGames = () => {
                                 </Row>
                                 <Row>
                                     <Button className={'join-btn'} >1نفر تا شروع</Button>
+                                    <Button  onClick={(e) => {
+                                        const link = 'https://example.com';
+                                        setTooltiptext('کپی شد')
+                                        navigator.clipboard.writeText(link);
+                                       }} className={'share-btn mt-2'} id="TooltipExample" >لینک بازی</Button>
+
+                                    <Tooltip placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggle}>
+                                        {tooltiptext}
+                                    </Tooltip>
                                 </Row>
                             </div>
                             <div className={"col-12 col-md-6 col-lg-3 game-item"}>
@@ -51,6 +66,15 @@ const MyGames = () => {
                                 </Row>
                                 <Row>
                                     <Button className={'join-btn'} >2نفر تا شروع</Button>
+                                    <Button  onClick={(e) => {
+                                        const link = 'https://example.com';
+                                        setTooltiptext('کپی شد')
+                                        navigator.clipboard.writeText(link);
+                                    }} className={'share-btn mt-2'} id="TooltipExample" >لینک بازی</Button>
+
+                                    <Tooltip placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggle}>
+                                        {tooltiptext}
+                                    </Tooltip>
                                 </Row>
                             </div>
 

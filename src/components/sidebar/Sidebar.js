@@ -50,9 +50,11 @@ const SideBar = () => {
                                 </ListGroupItem>
                             </Link>
 
-                            <ListGroupItem className={'menu-item'}>
-                                بازی های انجام شده
-                            </ListGroupItem>
+                            <Link to={'/dashboard/completed-games'} className={'menu-link'}>
+                                <ListGroupItem className={'menu-item'}>
+                                    بازی های انجام شده
+                                </ListGroupItem>
+                            </Link>
                             <ListGroupItem className={'menu-item'}>
                                 ایجاد اتاق جدید
                             </ListGroupItem>

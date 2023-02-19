@@ -27,7 +27,7 @@ export function Spinner() {
     const startConfetis=useDispatch()
     const start = useSelector(state => state.start)
     const navigate = useNavigate();
-    const [randomName, setRandomName] = useState('');
+    const [randomName, setRandomName] = useState('کی برنده میشه..؟!');
     useEffect(() => {
 
         setSpinAfter(10000)
@@ -50,8 +50,8 @@ export function Spinner() {
                 setRandomName("");
                 startConfetis({type:'show'})
                 Swal.fire({
-                    title: 'برنده بازی!',
-                    text: `${lists[1].text}`,
+                    title: `${lists[1].text}`,
+                    text: 'برنده بازی!',
                     icon: 'success',
                     allowOutsideClick: false,
                     allowEscapeKey: false,

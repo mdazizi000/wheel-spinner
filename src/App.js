@@ -18,6 +18,7 @@ import Games from "./pages/Games";
 import MyGames from "./pages/MyGames";
 import Spinning from "./pages/Spinning";
 import Spinner from "./pages/Spinner";
+import CompletedGames from "./pages/CompletedGames";
 
 function App() {
   const [ token, setToken] = useState(null);
@@ -34,6 +35,7 @@ function App() {
         {path:'/dashboard/games', element:<Games/>},
         {path:'/dashboard/my-games', element:<MyGames/>},
         {path:'/dashboard/game/:id', element:<Spinner/>},
+        {path:'/dashboard/completed-games', element:<CompletedGames/>},
       ]
     },
     {path:'/', element:<HomePage/>},

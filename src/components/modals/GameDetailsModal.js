@@ -42,7 +42,7 @@ const GameDetailsModal = (props) => {
             </Row>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" >پرداخت</Button>
+          <Button color="primary" disabled={props.data.count <= 0} >پرداخت</Button>
           <Button color="secondary" onClick={close}>لغو</Button>
         </ModalFooter>
       </Modal>

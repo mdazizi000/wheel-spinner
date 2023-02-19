@@ -46,5 +46,17 @@
     background: #F99417;
     color: #fff;
 
+}
 
+.games-box .game-item .share-btn {
+    color: #5D3891;
+    border: 1px solid #39B5E0;
+    font-weight: 600;
+    background: transparent;
+
+}
+
+.games-box .game-item .share-btn:hover {
+    background: #39B5E0;
+    color: #5D3891;
 }
