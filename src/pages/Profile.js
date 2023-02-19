@@ -1,6 +1,9 @@
 import {Fragment, useState} from "react";
-import {Badge, Card, CardBody, Form, FormFeedback, FormGroup, Input, Label, Row, Table} from "reactstrap";
+import {Badge, Button, Card, CardBody, Form, FormFeedback, FormGroup, Input, Label, Row, Table} from "reactstrap";
 import "../assets/css/profile.css"
+import TransactionModal from "../components/modals/TransactionModal";
+import Swal from 'sweetalert2'
+
 
 const Profile = () => {
     const [email, setEmail] = useState('')
@@ -8,7 +11,27 @@ const Profile = () => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [iban, setIban] = useState('')
+    const [type, setType] = useState(0)
+    const [balance, setBalance] = useState(0)
+    const [modal, setModal] = useState(false)
+
+    function openModal(type){
+        if (type === 1 &&  balance === 0){
+            Swal.fire({
+                icon: 'error',
+                title: 'موجودی کافی نیست...!!',
+                text: 'موجودی حساب شما کافی نیست',
+            })
+        }
+        else {
+            setType(type)
+            setModal(true)
+        }
+
+
+    }
     return <Fragment>
+        <TransactionModal modal={modal} setModal={setModal} type={type}/>
         <div className={"container"}>
             <Row className={'justify-content-center mt-lg-5 border border-dark border-opacity-25  form-container'}>
                 <h2>پروفایل</h2>
@@ -58,6 +81,7 @@ const Profile = () => {
                     </button>
                 </Form>
             </Row>
+
             <Row className={'justify-content-center mt-lg-5 border border-dark border-opacity-25  form-container'}>
                 <h2>کیف پول</h2>
                 <Row className={"alert alert-info mt-3  justify-content-between"}>
@@ -65,8 +89,8 @@ const Profile = () => {
                         <span className={'span'}>موجودی : 1350$</span>
                     </div>
                     <div className={"col-12 col-md-4 text-start"}>
-                        <a href="#" className={'btn btn-success btn-2'}>واریز</a>
-                        <a href="#" className={'btn btn-danger btn-2'}>برداشت</a>
+                        <Button className={'btn btn-success btn-2'} onClick={() => {openModal(0)}}>واریز</Button>
+                        <Button className={'btn btn-danger btn-2'} onClick={() => {openModal(1)}}>برداشت</Button>
                     </div>
                 </Row>
                 <hr/>
