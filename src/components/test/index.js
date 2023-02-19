@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import "./index.css";
+import "../../assets/css/spinner.css";
 
 
 const Wheel = (props) => {

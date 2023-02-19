@@ -1,12 +1,12 @@
 
 
 :root {
-  --wheel-font: "Lato", "Quicksand", sans-serif;
+  --wheel-font: "IRANsans", sans-serif;
   --wheel-size: 500px;
   --wheel-slice-spacing: 50px;
   --wheel-border-size: 5px;
-  --wheel-color: #1dfdc0;
-  --neutral-color: white;
+  --wheel-color: #5D3891;
+  --neutral-color: #F99417;
   --PI: 3.14159265358979;
   --nb-item: 0;
   --item-nb: 0;
@@ -105,9 +105,11 @@
   transform: translateY(-50%)
     rotate(calc(var(--item-nb) * (360deg / var(--nb-item, 1))));
 
-  color: #000000;
+  color: #BFACE2;
   text-align: right;
-  padding: 0 25px 0 50px;
+  padding: 0 50px 0 50px;
+  font-size: 20px;
+  font-weight: 800;
   font-family: var(--wheel-font);
 }
 
@@ -124,7 +126,7 @@
   transform: translate(-50%, -50%);
   padding-left: 0px;
   opacity: 0.25;
-
+  color: #fff;
   --slice-max-width: calc(
     var(--PI) * var(--wheel-size) + var(--wheel-size) / 2
   );
@@ -133,7 +135,7 @@
   );
   border: solid transparent calc(var(--slice-width) / 2);
   border-left: solid transparent 0;
-  border-right: solid var(--neutral-color) calc(var(--wheel-size) / 2);
+  border-right: solid rgba(217, 172, 245, 0.47) calc(var(--wheel-size) / 2);
 }
 
 .App {
@@ -145,4 +147,31 @@
 
 ul {
   list-style: none;
+}
+
+@media all and (max-width: 520px){
+  .wheel-container{
+    width: calc(300 + 2 * var(--wheel-border-size));
+    height: calc(300 + 2 * var(--wheel-border-size));
+    border: solid var(--wheel-color) 10px;
+  }
+
+  .wheel{
+    width: 300px;
+    height: 300px;
+  }
+  .wheel-item{
+    padding: 0 12px 0 50px;
+    font-size: 15px;
+  }
+
+}
+.rectangle {
+  height: 100px;
+  border: 8px solid #5D3891;
+  border-radius: 15px;
+  background: #F5EA5A;
+  font-size: 28px;
+  font-weight: 700;
+  padding: 20px 0;
 }
