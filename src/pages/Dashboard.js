@@ -63,6 +63,18 @@ const Dashboard = () => {
                           </Input>
                       </FormGroup>
 
+                      <FormGroup check className={'justify-content-start text-right'}>
+                          <Label >روش پرداخت</Label><br/>
+                          <Label check >
+                              <Input type="radio" name="radio1" />{' '}
+                              درگاه پرداخت
+                          </Label>
+                          <Label check style={{marginRight:50}}>
+                              <Input type="radio" name="radio1" />{' '}
+                              کیف پول
+                          </Label>
+                      </FormGroup>
+
                   </Form>
               </ModalBody>
               <ModalFooter className={'justify-content-start'}>

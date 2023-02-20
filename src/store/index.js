@@ -1,6 +1,13 @@
 import {createStore} from 'redux'
 
-const confetisReducer=(state= {start:false} , action )=>{
+const states = {
+    start:false,
+    user:null,
+    token:null
+}
+
+
+const confetisReducer=(state= states , action )=>{
     if (action.type === 'show'){
         return {
             start:  !state.start,
@@ -10,6 +17,14 @@ const confetisReducer=(state= {start:false} , action )=>{
     if (action.type === 'hidden'){
         return {
             start: !state.start,
+        }
+    }
+    if (action.type === 'setUser'){
+        localStorage.setItem('user',action.data)
+        localStorage.setItem('token',action.token)
+        return {
+            user: action.data,
+            token: action.token,
         }
     }
 
