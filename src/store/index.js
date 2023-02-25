@@ -3,7 +3,8 @@ import {createStore} from 'redux'
 const states = {
     start:false,
     user:null,
-    token:null
+    token:null,
+    balance:null
 }
 
 
@@ -25,6 +26,14 @@ const confetisReducer=(state= states , action )=>{
         return {
             user: action.data,
             token: action.token,
+            balance: action.balance,
+        }
+    }
+
+    if (action.type === 'updateUser'){
+        localStorage.setItem('user',action.data)
+        return {
+            user: action.data,
         }
     }
 

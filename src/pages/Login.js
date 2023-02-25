@@ -26,7 +26,7 @@ const Login = () => {
 
         axios.post('/login', data, {}).then((res) => {
             if (res.data.success === true) {
-                user({type: 'setUser', data: JSON.stringify(res.data?.data?.user), token: res.data?.data?.token})
+                user({type: 'setUser', data: JSON.stringify(res.data?.data?.user), token: res.data?.data?.token,balanace :res.data?.data?.user.game_wallet.balance })
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -34,7 +34,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 4000
                 })
-
+                setIsLoading(false)
                 setTimeout(() => {
                     window.location.replace('/dashboard/profile')
                 }, 2000)
@@ -161,7 +161,10 @@ const Login = () => {
                                 <Input placeholder={'رمز عبور  خود را وارد کنید'} type={'password'} onChange={(e)=>setPassword(e.target.value)}  valid={password !== ''} invalid={password === ''} />
                             </FormGroup>
 
-                            <button className={'btn btn-success'} onClick={(e)=>{login(e)}} disabled={email === ''  || password === '' || isLoading}> {isLoading ? <Spinner size="sm"/> : 'ورود '}</button>
+                            <button className={'btn btn-success'} onClick={(e)=>{
+                                setIsLoading(true)
+                                login(e)
+                            }} disabled={email === ''  || password === '' || isLoading}> {isLoading ? <Spinner size="sm"/> : 'ورود '}</button>
                         </Form>
 
                         <Link className={'link'} to={'/register'} >هنوز ثبت نام نکرده اید؟ ثبت نام</Link>

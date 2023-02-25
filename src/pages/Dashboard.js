@@ -14,75 +14,35 @@ import {
 } from "reactstrap";
 import '../assets/css/dashboard.css'
 import wheel from "../assets/img/wheel-3.png"
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import {toast} from "react-toastify";
+import CreateGameModal from "../components/modals/CreateGameModal";
 
 const Dashboard = () => {
     const [open,setOpen] =useState(false);
-    const [name,setName] =useState('');
-    const [count,setCount] =useState('');
-    const [price,setPrice] =useState('');
-    const [type,setType]=useState('');
+    const [balance,setBalance]=useState(0);
 
-    function IsOpen (){
-        setOpen(!open)
-        setName('')
-        setCount('')
-        setPrice('')
-        setType('')
-    }
+
+    const user = useDispatch();
+    useEffect(()=>{
+        axios.get('/profile')
+            .then((res) => {
+                if (res.data.success === true) {
+                    user({type: 'updateUser', data: JSON.stringify(res.data?.data?.user) })
+                    setBalance(res.data?.data?.user.game_wallet.balance)
+                }
+
+            })
+
+    },[])
+
+
+
   return <Fragment>
-      <div>
-          <Modal isOpen={open} toggle={IsOpen} className={'justify-content-between'}>
-              <ModalHeader toggle={IsOpen}>ساخت بازی جدید</ModalHeader>
-              <ModalBody>
-                  <Form className={' p-2 pb-4'}>
-
-                      <FormGroup className="position-relative">
-                          <Label for="name">
-                              نام بازی
-                          </Label>
-                          <Input id={'name'} onChange={(e)=> setName(e.target.value)}  placeholder={'نام بازی را وارد کنید'} name={'name'} type={"text"} />
-                      </FormGroup>
-                      <FormGroup className="position-relative">
-                          <Label for="count">
-                              تعدا نفرات
-                          </Label>
-                          <Input id={'count'} onChange={(e)=> setCount(e.target.value)} placeholder={'تعداد نفرات بازی را وارد کنید'} name={'count'} type={"number"} />
-                      </FormGroup>
-
-                      <FormGroup className="position-relative">
-                          <Label for="price">
-                             مبلغ(دلار)
-                          </Label>
-                          <Input id={'price'} onChange={(e)=> setPrice(e.target.value)} placeholder={'مبلغ بازی را مشخص کنید'} name={'price'} type={"number"} />
-                      </FormGroup >
-                      <FormGroup>
-                          <Label for="type">نوع بازی</Label>
-                          <Input type="select" name="type" id="type" onChange={(e)=>setType(e.target.value)}>
-                              <option selected={type === 'public'} value={'public'}>عمومی</option>
-                              <option selected={type === 'private'} value={'private'}>خصوصی</option>
-                          </Input>
-                      </FormGroup>
-
-                      <FormGroup check className={'justify-content-start text-right'}>
-                          <Label >روش پرداخت</Label><br/>
-                          <Label check >
-                              <Input type="radio" name="radio1" />{' '}
-                              درگاه پرداخت
-                          </Label>
-                          <Label check style={{marginRight:50}}>
-                              <Input type="radio" name="radio1" />{' '}
-                              کیف پول
-                          </Label>
-                      </FormGroup>
-
-                  </Form>
-              </ModalBody>
-              <ModalFooter className={'justify-content-start'}>
-                  <Button color="success" onClick={IsOpen}>ایجاد</Button>{' '}
-                  <Button color="danger" onClick={IsOpen}>لغو</Button>
-              </ModalFooter>
-          </Modal>
-      </div>
+      <CreateGameModal open={open} setOpen={setOpen}/>
      <div className={'container'}>
          <Row className={'justify-content-center text-center'}>
              <Card className={'col-12'}>
@@ -108,7 +68,7 @@ const Dashboard = () => {
                          </div>
                      </Row>
                      <Row className={'justify-content-center'}>
-                         <div className="col-8 create-box" onClick={IsOpen}>
+                         <div className="col-8 create-box" onClick={(e)=>{setOpen(true)}}>
                                 <h2><b>ساخت بازی جدید</b></h2>
                          </div>
                      </Row>

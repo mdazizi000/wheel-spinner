@@ -53,9 +53,10 @@ const Register = () => {
         data.append('wallet', iban)
         data.append('password', password)
 
-        axios.post('/register', data, {}).then((res) => {
+        axios.post('/register', data, {})
+            .then((res) => {
             if (res.data.success === true) {
-                user({type: 'setUser', data: JSON.stringify(res.data?.data?.user), token: res.data?.data?.token})
+                user({type: 'setUser', data: JSON.stringify(res.data?.data?.user), token: res.data?.data?.token,balance :res.data?.data?.user.game_wallet.balance })
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

@@ -4,9 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 import {
-  createBrowserRouter,
+  createBrowserRouter, Redirect,
   RouterProvider,
 } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 import RootLayout from "./pages/RootLayout";
 import HomePage from "./pages/HomePage";
 import Register from "./pages/Register";
@@ -22,13 +23,14 @@ import CompletedGames from "./pages/CompletedGames";
 
 function App() {
   const [ token, setToken] = useState(null);
+
   useEffect(()=>{
     setToken(localStorage.getItem('token'))
   },[])
   const Router=createBrowserRouter([
     {
       path:'/dashboard',
-      element:<RootLayout/>,
+      element:token !== null ? <RootLayout/> :<Navigate to={'/login'}/>,
       children:[
         {path:'/dashboard', element:<Dashboard/>},
         {path:'/dashboard/profile', element:<Profile/>},
@@ -39,8 +41,8 @@ function App() {
       ]
     },
     {path:'/', element:<HomePage/>},
-    {path:'/register', element:<Register/>},
-    {path:'/login', element:<Login/>},
+    {path:'/register', element:token == null? <Register/> : <Navigate to={'/dashboard'}/> },
+    {path:'/login', element:token == null? <Login/> : <Navigate to={'/dashboard'}/>},
   ]);
   return  <RouterProvider router={Router}/>;
   // return  token !== null ? <RouterProvider router={Router}/> : <Dashboard/>;

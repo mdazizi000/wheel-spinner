@@ -60,3 +60,29 @@
     background: #39B5E0;
     color: #5D3891;
 }
+.pagination{
+    justify-content: center!important;
+}
+
+.search-box{
+    border-radius: 50px;
+    margin-top: 8px;
+}
+.search-btn{
+    border-radius: 50%;
+    background: #5D3891;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    padding: 8px 5px;
+    border: none;
+}
+
+.search-btn:hover{
+    background: #F99417;
+}
+
+.search-btn:disabled{
+    background: #5D3891;
+}
+
