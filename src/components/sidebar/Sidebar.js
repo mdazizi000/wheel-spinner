@@ -11,7 +11,6 @@ import Swal from "sweetalert2";
 
 const SideBar = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const reRender = useSelector(state => state.user)
     const [modal, setModal] = useState(false)
     const [change, setChange] = useState(false)
     const [open, setOpen] = useState(false);
@@ -112,9 +111,7 @@ const SideBar = () => {
             })
     }
 
-    useEffect(() => {
 
-    }, [reRender])
     return (
         <Fragment>
             <TransactionModal modal={modal} setModal={setModal} type={0} change={change} setChange={setChange}/>

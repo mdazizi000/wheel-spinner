@@ -1,47 +1,37 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState, useCallback} from "react";
 import Swal from 'sweetalert2'
 import "../assets/css/spinner.css"
 import Confetti from "react-confetti";
-import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {Row} from "reactstrap";
 import axios from "axios";
 import Loader from "../components/loader/Loader";
 
 
-const places = [
-    {id: 1, text: "محمد", enabled: true},
-    {id: 2, text: "مسعود", enabled: true},
-    {id: 3, text: "اکو", enabled: true},
-    {id: 4, text: "سینا", enabled: true},
-    {id: 5, text: "نوید", enabled: true},
-    {id: 6, text: "جوزی", enabled: true},
-    {id: 7, text: "حسین", enabled: true},
-
-];
-
-
 export function Spinner() {
     const {id} = useParams();
-    const [lists, setLists] = useState(places);
+    const [lists, setLists] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [change, setChange] = useState(true);
     const [counter, setCounter] = React.useState(undefined);
-    const [winner, setWinner] = React.useState({});
-    const startConfetis = useDispatch()
-    const start = useSelector(state => state.start)
+    const [winner, setWinner] = useState(0);
+    const [start,setStart] = useState(false)
     const navigate = useNavigate();
     const [randomName, setRandomName] = useState('کی برنده میشه..؟!');
+    const intervalRef = useRef(null);
 
     useEffect(() => {
         if (counter === undefined) {
+            clearInterval(intervalRef.current);
+ 
             axios.get(`/live/${id}/game`)
                 .then((res) => {
                     setIsLoading(false)
                     if (res.data.success === true) {
-                        setCounter(res?.data?.start_time)
-                        counterCheck()
+                        // setCounter(res?.data?.data?.seconds)
+                        setLists(res?.data?.data?.players)
+                       infoSet(res?.data?.data?.seconds,res?.data?.data?.winner_id,res?.data?.data?.players)
                     }
                     else {
                         Swal.fire({
@@ -134,51 +124,76 @@ export function Spinner() {
 
     }, [change]);
 
-    function counterCheck() {
-        if (counter > 0) {
-            counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
-        } else {
+    const startTimer = () => {
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+           setCounter((prevCounter) => {
+                if (prevCounter <= 0) {
+                    clearInterval(intervalRef.current);
+                    endCounter()
+                    return 0;
+                } else {
+                    return prevCounter - 1;
+                }
+            })
+        }, 1000);
 
-            document.getElementById("title").innerText = "شروع شد.."
-            setSelectedItem(1)
-            const interval = setInterval(() => {
-                const randomIndex = Math.floor(Math.random() * lists.length);
-                const randomName = lists[randomIndex].text;
-                setRandomName(randomName);
-            }, 80);
-
-
-            setTimeout(() => {
-                clearInterval(interval);
-                setRandomName("");
-                startConfetis({type: 'show'})
-                Swal.fire({
-                    title: `${lists[1].text}`,
-                    text: 'برنده بازی!',
-                    icon: 'success',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    confirmButtonText: 'باشه'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        startConfetis({type: 'hidden'})
-                        navigate(-1);
-
-                    }
-
-                });
-                return () => clearInterval(interval);
-            }, 20000);
-
-        }
     }
 
-    const items = lists.filter((i) => i.enabled);
+    function infoSet(counter,winner2,list) {
+        setCounter(10)
+        // setWinner(winner)
+        // setLists(list)
+
+        startTimer()
+        console.log(lists)
+    }
+
+    function endCounter(){
+        document.getElementById("title").innerText = "شروع شد.."
+        const filteredItem = lists.filter((item) => item.winner === true);
+
+
+        setSelectedItem(filteredItem)
+        console.log(filteredItem)
+        // const interval = setInterval(() => {
+        //     const randomIndex = Math.floor(Math.random() * lists.length);
+        //     const randomName = lists[randomIndex].text;
+        //     setRandomName(randomName);
+        // }, 80);
+
+
+        setTimeout(() => {
+            // clearInterval(interval);
+            setRandomName("");
+            // startConfetis({type: 'show'})
+            setStart(true)
+            Swal.fire({
+                title: `${lists[1].text}`,
+                text: 'برنده بازی!',
+                icon: 'success',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                confirmButtonText: 'باشه'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // startConfetis({type: 'hidden'})
+                    setStart(false)
+                    navigate(-1);
+
+                }
+
+            });
+            // return () => clearInterval(interval);
+        }, 20000);
+    }
+
     const wheelVars = {
-        "--nb-item": items.length,
+        "--nb-item": lists.length,
         "--selected-item": selectedItem
     };
     const spinning = selectedItem !== null ? "spinning" : "";
+    // const counterFinished = counter === 0 ? endCounter() : '';
 
     return (
         <Fragment>
@@ -194,7 +209,7 @@ export function Spinner() {
                                 className={`wheel ${spinning}`}
                                 style={wheelVars}
                             >
-                                {items.map((item, index) => (
+                                {lists.map((item, index) => (
                                     <div
                                         className="wheel-item"
                                         key={index}

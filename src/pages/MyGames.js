@@ -275,7 +275,7 @@ const MyGames = () => {
 
                                                 </Row> :
                                                 <Row>
-                                                    <Link to={'/dashboard/game/1'} className={'col-12 btn btn-success'}>مشاهده</Link>
+                                                    <Link to={`/dashboard/game/${game.id}`} className={'col-12 btn btn-success'}>مشاهده</Link>
                                                 </Row>
                                             }
 
