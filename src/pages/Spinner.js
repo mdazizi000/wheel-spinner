@@ -24,7 +24,7 @@ export function Spinner() {
     useEffect(() => {
         if (counter === undefined) {
             clearInterval(intervalRef.current);
- 
+
             axios.get(`/live/${id}/game`)
                 .then((res) => {
                     setIsLoading(false)
@@ -123,14 +123,50 @@ export function Spinner() {
 
 
     }, [change]);
-
+    // useEffect(()=>{
+    //     console.log('lists',lists)
+    // },[lists])
     const startTimer = () => {
         clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
            setCounter((prevCounter) => {
                 if (prevCounter <= 0) {
                     clearInterval(intervalRef.current);
-                    endCounter()
+                    document.getElementById("title").innerText = "شروع شد.."
+
+                    console.log('lists2',lists)
+                    const filteredItem = lists.filter((item) => item.winner === true);
+                    setSelectedItem(filteredItem)
+                    // const interval = setInterval(() => {
+                    //     const randomIndex = Math.floor(Math.random() * lists.length);
+                    //     const randomName = lists[randomIndex].text;
+                    //     setRandomName(randomName);
+                    // }, 80);
+
+
+                    setTimeout(() => {
+                        // clearInterval(interval);
+                        setRandomName("");
+                        // startConfetis({type: 'show'})
+                        setStart(true)
+                        Swal.fire({
+                            title: `${lists[1].text}`,
+                            text: 'برنده بازی!',
+                            icon: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            confirmButtonText: 'باشه'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // startConfetis({type: 'hidden'})
+                                setStart(false)
+                                navigate(-1);
+
+                            }
+
+                        });
+                        // return () => clearInterval(interval);
+                    }, 20000);
                     return 0;
                 } else {
                     return prevCounter - 1;
@@ -146,46 +182,10 @@ export function Spinner() {
         // setLists(list)
 
         startTimer()
-        console.log(lists)
     }
 
     function endCounter(){
-        document.getElementById("title").innerText = "شروع شد.."
-        const filteredItem = lists.filter((item) => item.winner === true);
 
-
-        setSelectedItem(filteredItem)
-        console.log(filteredItem)
-        // const interval = setInterval(() => {
-        //     const randomIndex = Math.floor(Math.random() * lists.length);
-        //     const randomName = lists[randomIndex].text;
-        //     setRandomName(randomName);
-        // }, 80);
-
-
-        setTimeout(() => {
-            // clearInterval(interval);
-            setRandomName("");
-            // startConfetis({type: 'show'})
-            setStart(true)
-            Swal.fire({
-                title: `${lists[1].text}`,
-                text: 'برنده بازی!',
-                icon: 'success',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                confirmButtonText: 'باشه'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // startConfetis({type: 'hidden'})
-                    setStart(false)
-                    navigate(-1);
-
-                }
-
-            });
-            // return () => clearInterval(interval);
-        }, 20000);
     }
 
     const wheelVars = {

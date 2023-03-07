@@ -175,3 +175,7 @@ ul {
   font-weight: 700;
   padding: 20px 0;
 }
+
+.pagination ul li{
+  color: red;
+}

@@ -86,3 +86,6 @@
     background: #5D3891;
 }
 
+.pagination ul li{
+    color: red;
+}

@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {
   createBrowserRouter, Redirect,
-  RouterProvider,
+  RouterProvider,Switch
 } from "react-router-dom";
 import { Navigate } from 'react-router-dom';
 import RootLayout from "./pages/RootLayout";
@@ -29,15 +29,15 @@ function App() {
   },[])
   const Router=createBrowserRouter([
     {
-      path:'/dashboard',
+      path:'/dashboard/*',
       element:token !== null ? <RootLayout/> :<Navigate to={'/login'}/>,
       children:[
         {path:'/dashboard', element:<Dashboard/>},
-        {path:'/dashboard/profile', element:<Profile/>},
-        {path:'/dashboard/games', element:<Games/>},
-        {path:'/dashboard/my-games', element:<MyGames/>},
-        {path:'/dashboard/game/:id', element:<Spinner/>},
-        {path:'/dashboard/completed-games', element:<CompletedGames/>},
+        {path:'/profile', element:<Profile/>},
+        {path:'/games', element:<Games/>},
+        {path:'/my-games', element:<MyGames/>},
+        {path:'/game/:id', element:<Spinner/>},
+        {path:'/completed-games', element:<CompletedGames/>},
       ]
     },
     {path:'/', element:<HomePage/>},
@@ -46,6 +46,7 @@ function App() {
   ]);
   return  <RouterProvider router={Router}/>;
   // return  token !== null ? <RouterProvider router={Router}/> : <Dashboard/>;
+
 }
 
 export default App;
