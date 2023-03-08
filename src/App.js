@@ -29,15 +29,15 @@ function App() {
   },[])
   const Router=createBrowserRouter([
     {
-      path:'/dashboard/*',
+      path:'/dashboard',
       element:token !== null ? <RootLayout/> :<Navigate to={'/login'}/>,
       children:[
-        {path:'/dashboard', element:<Dashboard/>},
-        {path:'/profile', element:<Profile/>},
-        {path:'/games', element:<Games/>},
-        {path:'/my-games', element:<MyGames/>},
-        {path:'/game/:id', element:<Spinner/>},
-        {path:'/completed-games', element:<CompletedGames/>},
+        {path:'', element:<Dashboard/>},
+        {path:'profile', element:<Profile/>},
+        {path:'games', element:<Games/>},
+        {path:'my-games', element:<MyGames/>},
+        {path:'game/:id', element:<Spinner/>},
+        {path:'completed-games', element:<CompletedGames/>},
       ]
     },
     {path:'/', element:<HomePage/>},

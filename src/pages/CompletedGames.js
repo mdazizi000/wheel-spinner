@@ -1,8 +1,110 @@
-import {Fragment} from "react";
-import {Badge, Card, CardBody, CardHeader, Table} from "reactstrap";
+import {Fragment, useEffect, useState} from "react";
+import {Badge, Card, CardBody, CardHeader, Spinner, Table} from "reactstrap";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
 const CompletedGames = () => {
+    const [games,setGames]=useState([])
+    const [myId,setMyId]=useState('')
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(()=>{
+        axios.get('/closed/games')
+            .then((res) => {
+                if (res.data.success === true) {
+                  setGames(res?.data?.data?.games)
+                    setMyId(res?.data?.data?.my_id)
+                    setIsLoading(false)
+                }
+
+            })
+            .catch((err) => {
+
+
+                setIsLoading(false)
+                if (err.code !== "ERR_CANCELED" && !err.response?.status)
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'خطا در ارتباط با سرور! لطفا اتصال اینترنت خود را بررسی کنید.',
+                        showConfirmButton: false,
+                        timer: 4000
+                    })
+                else {
+                    switch (err.response.status) {
+                        // Unauthorized
+                        case 401:
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user");
+                            axios.defaults.headers.common.Authorization = undefined;
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'توکن شما منقضی شده است! لطفا دوباره وارد شوید.',
+                                showConfirmButton: false,
+                                timer: 4000
+                            })
+                            setTimeout(()=>{window.location.replace('/')},4000)
+
+
+                            break;
+
+                        // Unauthenticated
+
+                        // Not found
+                        case 404:
+                            window.location.replace('/')
+                            break;
+
+                        // Unprocessable content
+                        case 422:
+                            let errors = [];
+                            for (let error in err.response.data.errors)
+                                err.response.data.errors[error].forEach((item) =>
+                                    errors.push(item)
+                                );
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: `${errors[0]}`,
+                                showConfirmButton: false,
+                                timer: 4000
+                            })
+
+
+                            break;
+
+                        // Too many requests
+                        case 429:
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'تعداد درخواست‌های شما از حد مجاز عبور کرده است! لطفا بعدا تلاش کنید.',
+                                showConfirmButton: false,
+                                timer: 4000
+                            })
+
+                            break;
+
+                        // Server-side error
+                        case 500:
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'خطایی در سمت سرور پیش‌ آمده! لطفا بعدا تلاش کنید.',
+                                showConfirmButton: false,
+                                timer: 4000
+                            })
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+            })
+    },[])
   return(
       <Fragment>
         <Card>
@@ -23,33 +125,42 @@ const CompletedGames = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>رفقای خوب</td>
-                        <td>20</td>
-                        <td>5 نفر</td>
-                        <td>1401/11/19</td>
-                        <td>1401/11/20</td>
-                        <td><Badge color={'danger'}  className={'p-2'}>برنده  نشده ایید</Badge></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>کینکز</td>
-                        <td>57</td>
-                        <td>12 نفر</td>
-                        <td>1401/10/05</td>
-                        <td>1401/10/08</td>
-                        <td><Badge color={'success'}  className={'p-2'}>برنده  شده ایید</Badge></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>دورهمی</td>
-                        <td>100</td>
-                        <td>10 نفر</td>
-                        <td>1401/09/20</td>
-                        <td>1401/09/28</td>
-                        <td><Badge color={'success'} className={'p-2'}>برنده  شده ایید</Badge></td>
-                    </tr>
+                    {isLoading ? <tr className={'justify-content-center text-center'}>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><Spinner/></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                    </tr> :
+                        games.length <= 0 ?  <tr className={'justify-content-center text-center'}>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                                <td>بازی ای یافت نشد</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                    </tr> :
+
+                            games.map((game,index)=>(
+                                <tr>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{game.name}</td>
+                                    <td>{game.count}</td>
+                                    <td>{game.count} نفر</td>
+                                    <td>{game.created_at}</td>
+                                    <td>{game.end_time}</td>
+                                    <td><Badge color={game.winner_id === myId? 'success':'danger'}  className={'p-2'}>{game.winner_id === myId?'برنده  نشده ایید':'برنده شده ایید'}</Badge></td>
+                                </tr>
+                            ))
+
+                    }
+
+
+
                     </tbody>
                 </Table>
             </CardBody>

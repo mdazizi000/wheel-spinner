@@ -24,6 +24,7 @@ import CreateGameModal from "../components/modals/CreateGameModal";
 const Dashboard = () => {
     const [open,setOpen] =useState(false);
     const [balance,setBalance]=useState(0);
+    const [dashboard,setDashboard]=useState({});
 
 
     const user = useDispatch();
@@ -33,6 +34,14 @@ const Dashboard = () => {
                 if (res.data.success === true) {
                     user({type: 'updateUser', data: JSON.stringify(res.data?.data?.user) })
                     setBalance(res.data?.data?.user.game_wallet.balance)
+                }
+
+            })
+
+        axios.get('/user/dashboard')
+            .then((res) => {
+                if (res.data.success === true) {
+                   setDashboard(res?.data?.data)
                 }
 
             })
@@ -51,19 +60,19 @@ const Dashboard = () => {
                          <div className="col-12 col-md-4 col-lg-3 info-box">
                              <i className="fa fa-gamepad"></i>
                              <h5>بازی های باز</h5>
-                             <span><b>5</b> عدد</span>
+                             <span><b>{dashboard?.open_games}</b> عدد</span>
 
                          </div>
                          <div className="col-12 col-md-4 col-lg-3 info-box">
                              <i className="fa fa-ban"></i>
                              <h5>بازی های بسته شده</h5>
-                             <span><b>15</b> عدد</span>
+                             <span><b>{dashboard?.closed_gamed}</b> عدد</span>
 
                          </div>
                          <div className="col-12 col-md-4 col-lg-3 info-box">
                              <i className="fa fa-dollar-sign"></i>
                              <h5>درآمد</h5>
-                             <span><b>148</b> دلار </span>
+                             <span><b>{dashboard?.earn}</b> دلار </span>
 
                          </div>
                      </Row>
